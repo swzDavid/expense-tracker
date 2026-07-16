@@ -7,10 +7,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryReprository {
+public class CategoryRepository {
 
     public void save(Category category) {
-
         String sql = """
                 INSERT INTO category(name)
                 VALUES (?);
@@ -19,18 +18,18 @@ public class CategoryReprository {
         try (
                 Connection connection = DatabaseManager.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)
-        ) {
 
+        ) {
             statement.setString(1, category.getName());
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Could not save category.", e);
+
         }
     }
 
     public List<Category> findAll() {
-
         String sql = """
                 SELECT *
                 FROM category;
@@ -40,8 +39,8 @@ public class CategoryReprository {
                 Connection connection = DatabaseManager.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet result = statement.executeQuery()
-        ) {
 
+        ) {
             List<Category> categories = new ArrayList<>();
 
             while (result.next()) {
@@ -49,18 +48,18 @@ public class CategoryReprository {
                 String name = result.getString("name");
                 Category category = new Category(id, name);
                 categories.add(category);
+
             }
 
             return categories;
 
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new RuntimeException("Could not load categories.", e);
+
         }
     }
 
     public Category findById(long id) {
-
         String sql = """
                 SELECT *
                 FROM category
@@ -72,26 +71,23 @@ public class CategoryReprository {
                 PreparedStatement statement = connection.prepareStatement(sql)
 
         ) {
-
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
                 String name = result.getString("name");
                 return new Category(id, name);
-            }
 
+            }
             return null;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Could not load categories.", e);
-        }
+            throw new RuntimeException("Could not find category.", e);
 
+        }
     }
 
     public void delete(long id) {
-
         String sql = """
                 DELETE
                 FROM category
@@ -101,18 +97,18 @@ public class CategoryReprository {
         try (
                 Connection connection = DatabaseManager.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)
+
         ) {
             statement.setLong(1, id);
             statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException("Could not delete category.", e);
-        }
 
+        }
     }
 
     public void update(Category category) {
-
         String sql = """
                 UPDATE category
                 SET name = ?
@@ -122,8 +118,8 @@ public class CategoryReprository {
         try (
                 Connection connection = DatabaseManager.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)
-        ) {
 
+        ) {
             statement.setString(1, category.getName());
             statement.setLong(2, category.getId());
 
@@ -131,6 +127,7 @@ public class CategoryReprository {
 
         } catch (SQLException e) {
             throw new RuntimeException("Could not update category.", e);
+
         }
     }
 }
