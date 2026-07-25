@@ -1,0 +1,65 @@
+.root {
+    -fx-background-color: #FFFFFF;
+
+}
+
+.sidebar {
+    -fx-background-color: #F8F9FA;
+    -fx-padding: 10; /* space for elements from both sides */
+    -fx-spacing: 5; /* space underneath an element */
+
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2D3748;
+
+}
+
+.nav-button:hover {
+    -fx-background-color: #2D3748;
+    -fx-text-fill: #F8F9FA;
+
+}
+
+.toolbar {
+    -fx-spacing: 10;
+
+}
+
+.add-button {
+    -fx-background-color: #2B6CB0;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 50;
+
+}
+
+.add-button:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #2B6CB0;
+    -fx-border-color: #2B6CB0;
+    -fx-border-radius: 50;
+
+}
+
+.title-label {
+    -fx-text-fill: #2D3748;
+    -fx-font-weight: bold;
+    -fx-font-size: 24;
+    -fx-background-radius: 15;
+
+}
+
+.search-field {
+    -fx-background-radius: 10;
+
+}
+
+.transaction-table {
+    -fx-background-color: #F8F9FA;
+
+}
+
+.transaction-table .column-header {
+    -fx-background-color: #a7b9df;
+}
