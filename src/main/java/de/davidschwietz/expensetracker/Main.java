@@ -20,11 +20,8 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 800, 500);
 
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-
         stage.setTitle("expense-tracker");
         stage.getIcons().add(new Image("/images/logo.png"));
-
         stage.setScene(scene);
         stage.show();
     }
