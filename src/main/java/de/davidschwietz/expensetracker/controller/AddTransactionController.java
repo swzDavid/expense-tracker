@@ -57,10 +57,11 @@ public class AddTransactionController {
 
     @FXML
     private void handleSaveButton() {
-
         if (amountField.getText().isBlank()
                 || categoryBox.getValue() == null
-                || typeBox.getValue() == null) {
+                || typeBox.getValue() == null
+                || datePicker.getValue() == null
+                || descriptionField.getText() == null) {
 
             return;
         }
@@ -84,7 +85,6 @@ public class AddTransactionController {
 
     @FXML
     public void handleCancelButton() {
-
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }

@@ -44,7 +44,7 @@
                     <children>
                         <Region prefHeight="200.0" prefWidth="10.0" />
                         <Button fx:id="addTransactionButton" mnemonicParsing="false" onAction="#handleAddTransaction" prefHeight="25.0" prefWidth="230.0" styleClass="add-button" text="+ Transaction" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="addCategoryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" styleClass="add-button" text="+ Category" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="addCategoryButton" mnemonicParsing="false" onAction="#handleAddCategory" prefHeight="25.0" prefWidth="230.0" styleClass="add-button" text="+ Category" HBox.hgrow="ALWAYS" />
                         <Region prefHeight="29.0" prefWidth="200.0" />
                         <TextField fx:id="searchField" prefHeight="25.0" prefWidth="230.0" promptText="Search" styleClass="search-field" HBox.hgrow="ALWAYS" />
                         <Region prefHeight="200.0" prefWidth="10.0" />

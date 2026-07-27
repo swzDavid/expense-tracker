@@ -83,6 +83,15 @@ public class MainController {
 
     }
 
+    private void loadTransactions() {
+
+        List<Transaction> transactions = transactionService.findAllTransactions();
+
+        ObservableList<Transaction> transactionList = FXCollections.observableArrayList(transactions);
+
+        transactionTable.setItems(transactionList);
+    }
+
     @FXML
     public void handleAddTransaction() {
         try {
@@ -105,12 +114,22 @@ public class MainController {
         }
     }
 
-    private void loadTransactions() {
+    public void handleAddCategory() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddCategoryView.fxml"));
 
-        List<Transaction> transactions = transactionService.findAllTransactions();
+            Parent root = loader.load();
 
-        ObservableList<Transaction> transactionList = FXCollections.observableArrayList(transactions);
+            Scene scene = new Scene(root);
 
-        transactionTable.setItems(transactionList);
+            Stage stage = new Stage();
+            stage.setTitle("Add Category");
+            stage.getIcons().add(new Image("/images/plus.png"));
+            stage.setScene(scene);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            throw new RuntimeException("Could not load AddCategory", e);
+        }
     }
 }
