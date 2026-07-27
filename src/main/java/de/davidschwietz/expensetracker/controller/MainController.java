@@ -3,7 +3,6 @@ package de.davidschwietz.expensetracker.controller;
 import de.davidschwietz.expensetracker.model.Transaction;
 import de.davidschwietz.expensetracker.model.TransactionType;
 import de.davidschwietz.expensetracker.service.TransactionService;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -76,15 +75,11 @@ public class MainController {
     public void initialize() {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        categoryColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory().getName()));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-        List<Transaction> transactions = transactionService.findAllTransactions();
-
-        ObservableList<Transaction> transactionList = FXCollections.observableArrayList(transactions);
-
-        transactionTable.setItems(transactionList);
+        loadTransactions();
 
     }
 
@@ -103,8 +98,19 @@ public class MainController {
             stage.setScene(scene);
             stage.showAndWait();
 
+            loadTransactions();
+
         } catch (IOException e) {
             throw new RuntimeException("Could not load AddTransaction", e);
         }
+    }
+
+    private void loadTransactions() {
+
+        List<Transaction> transactions = transactionService.findAllTransactions();
+
+        ObservableList<Transaction> transactionList = FXCollections.observableArrayList(transactions);
+
+        transactionTable.setItems(transactionList);
     }
 }

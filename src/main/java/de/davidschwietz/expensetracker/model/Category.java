@@ -42,6 +42,6 @@ public class Category {
     }
 
     public String toString() {
-        return "Name of the category: " + name;
+        return name;
     }
 }

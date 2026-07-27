@@ -45,8 +45,8 @@
     <bottom>
         <HBox prefHeight="62.0" prefWidth="600.0" styleClass="dialog-footer" BorderPane.alignment="CENTER">
             <children>
-                <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="dialog-cancel-button" text="Cancel" />
-                <Button fx:id="saveButton" mnemonicParsing="false" styleClass="dialog-save-button" text="Save" />
+                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButton" styleClass="dialog-cancel-button" text="Cancel" />
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButton" styleClass="dialog-save-button" text="Save" />
             </children>
         </HBox>
     </bottom>
