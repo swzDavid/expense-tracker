@@ -142,3 +142,15 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+
+.delete-button {
+    -fx-background-color: #d35353;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 50;
+    -fx-font-size: 11;
+    -fx-padding: 2 12 2 12;
+}
+
+.delete-button:hover {
+    -fx-background-color: #a33f3f;
+}

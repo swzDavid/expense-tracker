@@ -5,21 +5,33 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="400.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.davidschwietz.expensetracker.controller.CategoryController">
     <children>
-        <HBox prefHeight="100.0" prefWidth="200.0">
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="480.0" styleClass="toolbar">
             <children>
-                <Label text="Categories" />
-                <Button mnemonicParsing="false" text="New Category" />
+                <Region prefHeight="200.0" prefWidth="10.0" />
+                <Label prefHeight="53.0" prefWidth="314.0" styleClass="title-label" text="Categories" />
+                <Button fx:id="newCategoryButton" mnemonicParsing="false" onAction="#handleNewCategory" prefHeight="25.0" prefWidth="150.0" styleClass="add-button" text="+ Category" />
+                <Region prefHeight="200.0" prefWidth="10.0" />
             </children>
         </HBox>
-        <TableView prefHeight="200.0" prefWidth="200.0">
-            <columns>
-                <TableColumn prefWidth="75.0" text="Name" />
-                <TableColumn prefWidth="75.0" text="Actions" />
-            </columns>
-        </TableView>
+        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Region prefHeight="200.0" prefWidth="10.0" />
+                <TableView fx:id="categoryTable" prefHeight="200.0" prefWidth="200.0" styleClass="transaction-table" HBox.hgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="nameColumn" prefWidth="300.0" text="Name" />
+                        <TableColumn fx:id="actionsColumn" maxWidth="100.0" minWidth="80.0" prefWidth="90.0" text="Actions" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+                <Region prefHeight="200.0" prefWidth="10.0" />
+            </children>
+        </HBox>
     </children>
 </VBox>
