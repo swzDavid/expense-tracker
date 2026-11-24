@@ -87,20 +87,38 @@ public class CategoryRepository {
         }
     }
 
+    /** Löscht die Kategorie samt aller zugehörigen Transactions (alles oder nichts). */
     public void delete(long id) {
-        String sql = """
+        String deleteTransactionsSql = """
+                DELETE
+                FROM transactions
+                WHERE category_id = ?;
+                """;
+        String deleteCategorySql = """
                 DELETE
                 FROM category
                 WHERE id = ?;
                 """;
 
-        try (
-                Connection connection = DatabaseManager.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)
+        try (Connection connection = DatabaseManager.getConnection()) {
+            connection.setAutoCommit(false);
 
-        ) {
-            statement.setLong(1, id);
-            statement.executeUpdate();
+            try (
+                    PreparedStatement deleteTransactions = connection.prepareStatement(deleteTransactionsSql);
+                    PreparedStatement deleteCategory = connection.prepareStatement(deleteCategorySql)
+            ) {
+                deleteTransactions.setLong(1, id);
+                deleteTransactions.executeUpdate();
+
+                deleteCategory.setLong(1, id);
+                deleteCategory.executeUpdate();
+
+                connection.commit();
+
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException("Could not delete category.", e);

@@ -2,6 +2,7 @@ package de.davidschwietz.expensetracker.controller;
 
 import de.davidschwietz.expensetracker.model.Category;
 import de.davidschwietz.expensetracker.service.CategoryService;
+import de.davidschwietz.expensetracker.util.WindowUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,6 +24,7 @@ import java.io.IOException;
 
 public class CategoryController {
 
+    // Pfad relativ zu src/main/resources
     private static final String ADD_CATEGORY_VIEW = "/fxml/AddCategoryView.fxml";
 
     private final CategoryService categoryService = new CategoryService();
@@ -75,6 +78,7 @@ public class CategoryController {
             dialog.setTitle("Add Category");
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(newCategoryButton.getScene().getWindow());
+            WindowUtil.applyIcon(dialog);
             dialog.setScene(new Scene(root));
             dialog.showAndWait(); // wartet, bis Save/Cancel das Fenster schließt
 
@@ -88,11 +92,18 @@ public class CategoryController {
         if (category == null) {
             return;
         }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Deleting \"" + category.getName() + "\" also deletes all its transactions. Continue?",
+                ButtonType.OK, ButtonType.CANCEL);
+        if (confirm.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK) {
+            return;
+        }
+
         try {
             categoryService.deleteCategory(category.getId());
             loadCategories();
         } catch (RuntimeException e) {
-            // z. B. wenn die Kategorie noch in Transactions verwendet wird (Fremdschlüssel)
             new Alert(Alert.AlertType.ERROR, "Category could not be deleted.").showAndWait();
         }
     }

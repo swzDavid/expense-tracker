@@ -2,6 +2,7 @@ package de.davidschwietz.expensetracker.controller;
 
 import de.davidschwietz.expensetracker.model.Transaction;
 import de.davidschwietz.expensetracker.service.TransactionService;
+import de.davidschwietz.expensetracker.util.WindowUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -97,6 +98,7 @@ public class TransactionsController {
             dialog.setTitle("Add Transaction");
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(addTransactionButton.getScene().getWindow());
+            WindowUtil.applyIcon(dialog);
             dialog.setScene(new Scene(root));
             dialog.showAndWait(); // wartet, bis Save/Cancel das Fenster schließt
 
