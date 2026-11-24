@@ -41,14 +41,29 @@
 
 .search-field {
     -fx-background-radius: 10;
+    -fx-background-color: #F8F9FA;
+    -fx-border-radius: 10;
+    -fx-border-width: 0.5;
+    -fx-border-color: #2D3748;
 }
 
 .transaction-table {
     -fx-background-color: #F8F9FA;
+
 }
 
 .transaction-table .column-header {
     -fx-background-color: #a7b9df;
+}
+
+.transaction-table .table-row-cell:hover {
+    -fx-background-color: #a7b9df;
+    -fx-border-color: #2D3748;
+    -fx-border-width: 0.5;
+}
+
+.transaction-table .table-row-cell:selected {
+    -fx-background-color: #2B6CB0;
 }
 
 .dialog-root {
@@ -111,4 +126,19 @@
 
 .dialog-datepicker .arrow-button {
     -fx-background-radius: 0 15px 15px 0;
+}
+
+.resetButton {
+    -fx-background-color: #d35353;
+    -fx-text-fill: #050505;
+    -fx-background-radius: 50;
+}
+
+.resetButton:hover {
+    -fx-background-color: #a33f3f;
+}
+
+.textfield {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
