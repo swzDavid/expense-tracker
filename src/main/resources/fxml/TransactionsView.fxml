@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
-
-<VBox prefHeight="400.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="hallo" />
-   </children>
+<VBox prefHeight="400.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.davidschwietz.expensetracker.controller.TransactionsController">
+    <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="480.0" styleClass="toolbar">
+            <children>
+                <Region prefHeight="200.0" prefWidth="10.0" />
+                <Label prefHeight="53.0" prefWidth="314.0" styleClass="title-label" text="Transactions" />
+                <Button fx:id="addTransactionButton" mnemonicParsing="false" onAction="#handleAddTransaction" prefHeight="25.0" prefWidth="150.0" styleClass="add-button" text="+ Transaction" />
+                <Region prefHeight="200.0" prefWidth="10.0" />
+            </children>
+        </HBox>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="transactions-scroll" VBox.vgrow="ALWAYS">
+            <content>
+                <!-- Pro Monat fügt der Controller hier einen Titel und eine Tabelle ein -->
+                <VBox fx:id="monthsContainer" styleClass="months-container" />
+            </content>
+        </ScrollPane>
+    </children>
 </VBox>

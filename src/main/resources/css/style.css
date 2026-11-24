@@ -154,3 +154,30 @@
 .delete-button:hover {
     -fx-background-color: #a33f3f;
 }
+
+.month-label {
+    -fx-text-fill: #2D3748;
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+}
+
+.months-container {
+    -fx-spacing: 15;
+    -fx-padding: 0 10 10 10;
+}
+
+.transactions-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.transactions-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.balance-label {
+    -fx-text-fill: #2D3748;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}

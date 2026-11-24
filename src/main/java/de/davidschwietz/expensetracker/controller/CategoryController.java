@@ -22,7 +22,6 @@ import java.io.IOException;
 
 public class CategoryController {
 
-    // Pfad relativ zu src/main/resources
     private static final String ADD_CATEGORY_VIEW = "/fxml/AddCategoryView.fxml";
 
     private final CategoryService categoryService = new CategoryService();
