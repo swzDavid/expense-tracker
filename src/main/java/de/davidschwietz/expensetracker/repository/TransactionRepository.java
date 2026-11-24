@@ -49,7 +49,7 @@ public class TransactionRepository {
         String sql = """
                 SELECT *
                 FROM transactions
-                ORDER BY date DESC;
+                ORDER BY date DESC, id DESC;
                 """;
 
         try (

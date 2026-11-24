@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -72,6 +73,9 @@ public class MainController {
     private TextField searchField;
 
     @FXML
+    private StackPane contentPane;
+
+    @FXML
     public void initialize() {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -80,6 +84,7 @@ public class MainController {
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
         loadTransactions();
+        updateSummary();
 
     }
 
@@ -92,8 +97,37 @@ public class MainController {
         transactionTable.setItems(transactionList);
     }
 
+    private void loadView(String fxml) throws IOException {
+        Parent View = FXMLLoader.load(getClass().getResource("/fxml/" + fxml));
+
+        contentPane.getChildren().setAll(View);
+    }
+
+
+    public void updateSummary() {
+
+        BigDecimal income = BigDecimal.ZERO;
+        BigDecimal expense = BigDecimal.ZERO;
+
+        List<Transaction> transactions = transactionService.findAllTransactions();
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getType() == TransactionType.INCOME) {
+                income = income.add(transaction.getAmount());
+            } else {
+                expense = expense.add(transaction.getAmount());
+            }
+        }
+
+        incomeLabel.setText(income.toPlainString() + " €");
+        expensesLabel.setText(expense.toPlainString() + " €");
+
+        BigDecimal balance = income.subtract(expense);
+        balanceLabel.setText(balance.toPlainString() + " €");
+    }
+
     @FXML
-    public void handleAddTransaction() {
+    private void handleAddTransaction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddTransactionView.fxml"));
 
@@ -108,13 +142,15 @@ public class MainController {
             stage.showAndWait();
 
             loadTransactions();
+            updateSummary();
 
         } catch (IOException e) {
             throw new RuntimeException("Could not load AddTransaction", e);
         }
     }
 
-    public void handleAddCategory() {
+    @FXML
+    private void handleAddCategory() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddCategoryView.fxml"));
 
@@ -132,4 +168,25 @@ public class MainController {
             throw new RuntimeException("Could not load AddCategory", e);
         }
     }
+
+    @FXML
+    private void handleCategories() throws IOException {
+        loadView("CategoryView.fxml");
+    }
+
+    @FXML
+    private void handleDashboard() throws IOException {
+        loadView("DashboardView.fxml");
+    }
+
+    @FXML
+    private void handleTransactions() throws IOException {
+        loadView("TransactionsView.fxml");
+    }
+
+    @FXML
+    private void handleSettings() throws IOException {
+        loadView("SettingsView.fxml");
+    }
+
 }
